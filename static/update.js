@@ -13,9 +13,10 @@ function updateGround(self, increasement) {
 }
 
 function updateObstacle(self, delta, increasement) {
-    Phaser.Actions.IncX(self.obstacles.getChildren(), increasement * -1)
-
-    self.obstacles.getChildren().forEach(obstacle => {
+    Phaser.Actions.IncX(self.movableObstacles.getChildren(), (increasement + 0.5) * -1)
+    Phaser.Actions.IncX(self.immovableObstacles.getChildren(), increasement * -1)
+    const merged = self.immovableObstacles.getChildren().concat(self.movableObstacles.getChildren());
+    merged.forEach(obstacle => {
         if (obstacle.getBounds().right < 0) {
             obstacle.destroy()
         }
@@ -44,22 +45,36 @@ function updateGameSpeed(self, delta) {
 
 function placeObstacle(self) {
     const { width, height } = self.game.config
-    const obstacleNum = Math.floor(Math.random() * 8) + 1
-
+    const obstacleNum = Math.floor(Math.random() * 11) + 1
+    // const obstacleNum = 11
     let obstacle
-    if (obstacleNum > 6) {
-        obstacle = self.obstacles.create(width, height - 20, `enemy-bird`)
-        obstacle.play('dino-fly', 1);
-        obstacle.body.height = obstacle.body.height / 1.5;
-        obstacle.body.offset.y = +30
-    } else {
-        obstacle = self.obstacles.create(width, height, `obstacle-${obstacleNum}`)
-        obstacle.setBodySize(obstacle.width - obstacle.width / 10, obstacle.height)
-        obstacle.body.offset.y = +10
+    let detail = getObstacleDetail(obstacleNum)
+
+    if (detail.ismovable) {
+        obstacle = self.movableObstacles.create(width, height - detail.offset, `obstacle-${obstacleNum}`)
     }
-    obstacle.setOrigin(0, 1).setImmovable()
+    else {
+        obstacle = self.immovableObstacles.create(width, height - detail.offset, `obstacle-${obstacleNum}`)
+    }
+
+    if (detail.anim) {
+        obstacle.play(`obstacle-anim-${obstacleNum}`, 1);
+    }
+
+    obstacle.setSize(obstacle.width - detail.width, obstacle.height - detail.height)
+    obstacle.setOrigin(0,1).setImmovable()
 }
 
 function randomNumber(min, max) {
     return Math.floor((Math.random()) * (max - min + 1)) + min
+}
+
+function getObstacleDetail(num) {
+    if (num == 11) return {ismovable: true, offset: 25, anim: true, width: 30, height: 40}
+    if (num == 10) return {ismovable: true, offset: 30, anim: true, width: 70, height: 30}
+    if (num == 9) return {ismovable: true, offset: 70, anim: true, width: 35, height: 50}
+    if (num == 8) return {ismovable: true, offset: 30, anim: true, width: 35, height: 10}
+    if (num == 7) return {ismovable: false, offset: 20, anim: true, width: 80, height: 80}
+    if (num == 6) return {ismovable: false, offset: 35, anim: false, width: 60, height: 10}
+    if (num < 6) return {ismovable: false, offset: 35, anim: false, width: 12, height: 10}
 }

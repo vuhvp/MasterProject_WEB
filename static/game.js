@@ -6,7 +6,7 @@ const config = {
     parent: 'game',
     type: Phaser.AUTO,
     width: 1200,
-    height: 340,
+    height: 450,
     pixelArt: true,
     transparent: true,
     scale: {
@@ -16,7 +16,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false
+            debug: true,
         }
     },
     // fps: {
