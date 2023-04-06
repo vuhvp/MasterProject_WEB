@@ -22,7 +22,11 @@ server.listen(3000, function () {
 
 io.on('connection', function (socket) {
   console.log('player [' + socket.id + '] connected')
- 
+
+  socket.on('imageUri', function (uri) {
+    socket.broadcast.emit('imageUri', uri)
+  })
+
   socket.on('disconnect', function () {
     console.log('player [' + socket.id + '] disconnected')
   })

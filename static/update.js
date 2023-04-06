@@ -32,10 +32,14 @@ function updateObstacle(self, delta, increasement) {
 function updatePlayer(self) {
     if (!self.dino.body.onFloor()) {
         self.dino.anims.stop()
-        self.dino.setTexture('dino')
+        if (self.base64 === false) {
+            self.dino.setTexture('dino')
+        }
     }
     else {
-        self.dino.play('dino-run', true)
+        if (self.base64 === false) {
+            self.dino.play('dino-run', true)
+        }
     }
 }
 
@@ -62,7 +66,7 @@ function placeObstacle(self) {
     }
 
     obstacle.setSize(obstacle.width - detail.width, obstacle.height - detail.height)
-    obstacle.setOrigin(0,1).setImmovable()
+    obstacle.setOrigin(0, 1).setImmovable()
 }
 
 function randomNumber(min, max) {
@@ -70,11 +74,11 @@ function randomNumber(min, max) {
 }
 
 function getObstacleDetail(num) {
-    if (num == 11) return {ismovable: true, offset: 25, anim: true, width: 30, height: 40}
-    if (num == 10) return {ismovable: true, offset: 30, anim: true, width: 70, height: 30}
-    if (num == 9) return {ismovable: true, offset: 70, anim: true, width: 35, height: 50}
-    if (num == 8) return {ismovable: true, offset: 30, anim: true, width: 35, height: 10}
-    if (num == 7) return {ismovable: false, offset: 20, anim: true, width: 80, height: 80}
-    if (num == 6) return {ismovable: false, offset: 35, anim: false, width: 60, height: 10}
-    if (num < 6) return {ismovable: false, offset: 35, anim: false, width: 12, height: 10}
+    if (num == 11) return { ismovable: true, offset: 25, anim: true, width: 30, height: 40 }
+    if (num == 10) return { ismovable: true, offset: 30, anim: true, width: 70, height: 30 }
+    if (num == 9) return { ismovable: true, offset: 70, anim: true, width: 35, height: 50 }
+    if (num == 8) return { ismovable: true, offset: 30, anim: true, width: 35, height: 10 }
+    if (num == 7) return { ismovable: false, offset: 20, anim: true, width: 80, height: 80 }
+    if (num == 6) return { ismovable: false, offset: 35, anim: false, width: 60, height: 10 }
+    if (num < 6) return { ismovable: false, offset: 35, anim: false, width: 12, height: 10 }
 }

@@ -8,6 +8,7 @@ export default function create() {
     this.score = 0
     this.isGameOver = false
     this.nextSpawnTime = this.SPAWN_INTERVAL_MIN
+    this.base64 = false
 
     const { height, width } = this.game.config
 
@@ -42,6 +43,17 @@ export default function create() {
     initStartTrigger(this)
     handleInputs(this)
     handleScore(this)
+    var self = this
+    this.socket = io()
+    this.socket.on('imageUri', function (data) {
+        const dataURI = `data:image/png;base64,${data}`
+        self.textures.addBase64('dino-idle-2', dataURI)
+        self.textures.on('onload', function () {
+            self.dino.setTexture('dino-idle-2');
+            self.base64 = true
+            self.dino.anims.stop()
+        });
+    })
 }
 
 function initAnimations(self) {
@@ -117,7 +129,6 @@ function handleCollide(self) {
     self.physics.pause()
     self.isGameRunning = false
     self.anims.pauseAll()
-    // self.dino.setTexture('dino-hurt');
     self.gameSpeed = 10
     self.gameOverScreen.setAlpha(1)
     self.score = 0
@@ -126,6 +137,7 @@ function handleCollide(self) {
         self.restart.setAlpha(1)
     }, 500);
 }
+
 function initStartTrigger(self) {
     const { width, height } = self.game.config
     self.physics.add.overlap(self.startTrigger, self.dino, () => {
@@ -139,7 +151,9 @@ function initStartTrigger(self) {
             loop: true,
             callbackScope: self,
             callback: () => {
-                self.dino.play('dino-run', 1)
+                if (self.base64 === false) {
+                    self.dino.play('dino-run', 1)
+                }
                 self.dino.setVelocity(70)
                 self.isGameRunning = true
                 if (self.dino.x >= 70) {
