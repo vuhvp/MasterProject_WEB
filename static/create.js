@@ -19,8 +19,8 @@ export default function create() {
     this.physics.add.existing(this.ground);
     this.ground.body.immovable = true;
     this.ground.body.offset.y = +25
-    this.scoreText = this.add.text(width, 0, '00000', { fill: "#535353", font: '900 35px Courier', resolution: 5 }).setOrigin(1, 0)
-    this.highScoreText = this.add.text(width, 0, '00000', { fill: "#535353", font: '900 35px Courier', resolution: 5 }).setOrigin(1, 0).setAlpha(0)
+    this.scoreText = this.add.text(width, 0, '00000', { fill: "#ffff2e", stroke: '#e85b8f', strokeThickness: 8, font: '900 35px Courier', resolution: 10 }).setOrigin(1, 0)
+    this.highScoreText = this.add.text(width, 0, '00000', { fill: "#ffff2e", stroke: '#e85b8f', strokeThickness: 8, font: '900 35px Courier', resolution: 10 }).setOrigin(1, 0).setAlpha(0)
     this.dino = this.physics.add.sprite(0, height - 35, 'dino-idle')
         .setOrigin(0, 1)
         .setDepth(1)
@@ -31,7 +31,7 @@ export default function create() {
 
     this.gameOverScreen = this.add.container(width / 2, height / 2).setAlpha(0)
     this.gameOverText = this.add.image(0, 0, 'game-over')
-    this.restart = this.add.image(0, 80, 'restart').setAlpha(0)
+    this.restart = this.add.image(0, 90, 'restart').setAlpha(0)
     this.gameOverScreen.add([
         this.gameOverText, this.restart
     ]).setDepth(1)
@@ -47,9 +47,13 @@ export default function create() {
     this.socket = io()
     this.socket.on('imageUri', function (data) {
         const dataURI = `data:image/png;base64,${data}`
+        if (self.textures.exists('dino-idle-2')) {
+            self.textures.removeKey('dino-idle-2')
+        }
         self.textures.addBase64('dino-idle-2', dataURI)
         self.textures.on('onload', function () {
-            self.dino.setTexture('dino-idle-2');
+            self.dino.setTexture('dino-idle-2')
+            self.dino.setBodySize(self.dino.width, self.dino.height)
             self.base64 = true
             self.dino.anims.stop()
         });
@@ -169,7 +173,7 @@ function handleInputs(self) {
     self.input.keyboard.on('keydown', (event) => {
         if (event.keyCode === 32) {
             if (self.dino.body.onFloor()) {
-                self.dino.setVelocityY(-1700)
+                self.dino.setVelocityY(-1800)
             }
             if (self.restart.alpha === 1) {
                 self.dino.setVelocityY(0)

@@ -1,37 +1,14 @@
 export default function preload() {
-  this.load.audio('jump', '/static/assets/jump.m4a');
-  this.load.audio('hit', '/static/assets/hit.m4a');
-  this.load.audio('reach', '/static/assets/reach.m4a');
-
   this.load.image('background', '/static/assets/background.png');
   this.load.image('ground', '/static/assets/ground-2.png');
   this.load.image('dino-idle', '/static/assets/fox.png');
   this.load.image('dino-hurt', '/static/assets/dino-hurt.png');
   this.load.image('restart', '/static/assets/restart.png');
   this.load.image('game-over', '/static/assets/game-over.png');
-  this.load.image('cloud', '/static/assets/cloud.png');
-
-  this.load.spritesheet('star', '/static/assets/stars.png', {
-    frameWidth: 9, frameHeight: 9
-  });
-
-  this.load.spritesheet('moon', '/static/assets/moon.png', {
-    frameWidth: 20, frameHeight: 40
-  });
 
   this.load.spritesheet('dino', '/static/assets/fox-run.png', {
     frameWidth: 90,
     frameHeight: 90
-  })
-
-  this.load.spritesheet('dino-down', '/static/assets/dino-down.png', {
-    frameWidth: 118,
-    frameHeight: 94
-  })
-
-  this.load.spritesheet('enemy-bird', '/static/assets/enemy-bird.png', {
-    frameWidth: 92,
-    frameHeight: 77
   })
 
   this.load.image('obstacle-1', '/static/assets/ob-1.png')
@@ -60,4 +37,6 @@ export default function preload() {
     frameWidth: 90,
     frameHeight: 90
   })
+
+  this.load.plugin('rexcirclemaskimageplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexcirclemaskimageplugin.min.js', true);
 }
