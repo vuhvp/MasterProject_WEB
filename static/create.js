@@ -44,7 +44,10 @@ export default function create() {
     handleInputs(this)
     handleScore(this)
     var self = this
-    this.socket = io()
+    this.socket = io('http://localhost:3000')
+    this.socket.on('connect', function () {
+        console.log('connected');
+    })
     this.socket.on('imageUri', function (data) {
         const dataURI = `data:image/png;base64,${data}`
         if (self.textures.exists('dino-idle-2')) {
