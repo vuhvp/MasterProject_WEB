@@ -1,15 +1,8 @@
 export default function preload() {
   this.load.image('background', '/static/assets/background.png');
   this.load.image('ground', '/static/assets/ground-2.png');
-  this.load.image('dino-idle', '/static/assets/fox.png');
-  this.load.image('dino-hurt', '/static/assets/dino-hurt.png');
   this.load.image('restart', '/static/assets/restart.png');
   this.load.image('game-over', '/static/assets/game-over.png');
-
-  this.load.spritesheet('dino', '/static/assets/fox-run.png', {
-    frameWidth: 90,
-    frameHeight: 90
-  })
 
   this.load.image('obstacle-1', '/static/assets/ob-1.png')
   this.load.image('obstacle-2', '/static/assets/ob-2.png')

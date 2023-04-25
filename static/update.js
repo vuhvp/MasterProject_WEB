@@ -44,7 +44,8 @@ function updateGameSpeed(self, delta) {
 
 function placeObstacle(self) {
     const { width, height } = self.game.config
-    const obstacleNum = Math.floor(Math.random() * 11) + 1
+    // const obstacleNum = Math.floor(Math.random() * 11) + 1
+    const obstacleNum = 9
     let obstacle
     let detail = getObstacleDetail(obstacleNum)
 

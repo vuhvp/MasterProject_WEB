@@ -66,14 +66,17 @@ export default function create() {
         const dataURI = `data:image/png;base64,${base64}`
         if (self.textures.exists('player-idle-2')) {
             self.textures.removeKey('player-idle-2')
+            const face = self.playerContainer.getAt(1)
+            self.playerContainer.removeAt(1, true)
         }
         self.textures.addBase64('player-idle-2', dataURI)
-        self.textures.on('onload', function () {
+
+        self.textures.once('onload', function () {
             let x = self.player.texture.key == 'player-idle' ? 5 : 17
-            self.face = self.add.image(x, -20, 'player-idle-2');
-            self.face.displayWidth = 50;
-            self.face.scaleY = self.face.scaleX;
-            self.playerContainer.add(self.face)
+            const face = self.add.image(x, -20, 'player-idle-2');
+            face.displayWidth = 50;
+            face.scaleY = face.scaleX;
+            self.playerContainer.add(face)
             self.faceChanged = true
         });
     })
@@ -92,20 +95,6 @@ function initAnimations(self) {
             { key: 'player-running', frame: "boy-running-6.png" }
         ],
         frameRate: self.gameSpeed,
-        repeat: -1
-    })
-
-    self.anims.create({
-        key: 'dino-run',
-        frames: self.anims.generateFrameNumbers('dino', { start: 0, end: 8 }),
-        frameRate: self.gameSpeed,
-        repeat: -1
-    })
-
-    self.anims.create({
-        key: 'dino-fly',
-        frames: self.anims.generateFrameNumbers('enemy-bird', { start: 0, end: 1 }),
-        frameRate: 6,
         repeat: -1
     })
 
@@ -190,8 +179,9 @@ function initStartTrigger(self) {
             callbackScope: self,
             callback: () => {
                 if (self.faceChanged) {
-                    if (self.face.x == 5) {
-                        self.face.x += 12
+                    const face = self.playerContainer.getAt(1)
+                    if (face.x == 5) {
+                        face.x += 12
                     }
                 }
                 self.playerContainer.body.setVelocity(70)

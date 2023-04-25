@@ -9,3 +9,6 @@ pip3 install -r requirements.txt
 
 4. Run app
 python3 app.py
+
+# To export requirements
+pip3 freeze > requirements.txt
