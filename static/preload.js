@@ -38,5 +38,6 @@ export default function preload() {
     frameHeight: 90
   })
 
-  this.load.plugin('rexcirclemaskimageplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexcirclemaskimageplugin.min.js', true);
+  this.load.image('player-idle', '/static/assets/boy/boy-idle.png');
+  this.load.atlas("player-running", "/static/assets/boy/boy.png", "/static/assets/boy/boy.json")
 }

@@ -19,11 +19,6 @@ const config = {
             debug: false,
         }
     },
-    // fps: {
-    //   target: 120,
-    //   forceSetTimeOut: true
-    // },
-    //   scene: [PreloadScene, PlayScene]
     scene: {
         preload: preload,
         create: create,

@@ -6,9 +6,8 @@ export default function create() {
     this.isGameRunning = false
     this.gameSpeed = 10
     this.score = 0
-    this.isGameOver = false
     this.nextSpawnTime = this.SPAWN_INTERVAL_MIN
-    this.base64 = false
+    this.faceChanged = false
 
     const { height, width } = this.game.config
 
@@ -21,13 +20,30 @@ export default function create() {
     this.ground.body.offset.y = +25
     this.scoreText = this.add.text(width, 0, '00000', { fill: "#ffff2e", stroke: '#e85b8f', strokeThickness: 8, font: '900 35px Courier', resolution: 10 }).setOrigin(1, 0)
     this.highScoreText = this.add.text(width, 0, '00000', { fill: "#ffff2e", stroke: '#e85b8f', strokeThickness: 8, font: '900 35px Courier', resolution: 10 }).setOrigin(1, 0).setAlpha(0)
-    this.dino = this.physics.add.sprite(0, height - 35, 'dino-idle')
-        .setOrigin(0, 1)
-        .setDepth(1)
-        .setCollideWorldBounds(true)
-        .setGravityY(5000)
 
-    this.dino.setBodySize(this.dino.width / 2.5, this.dino.height)
+    this.playerContainer = this.add.container(40, height - 200)
+    this.playerContainer.setSize(36, 140);
+    this.playerContainer.setDepth(1)
+    this.physics.world.enable(this.playerContainer);
+    this.playerContainer.body.setGravityY(5000).setCollideWorldBounds(true);
+
+    this.player = this.physics.add.sprite(0, 0, 'player-idle')
+    // this.player.displayHeight = 140
+    // this.player.scaleX = this.player.scaleY;
+    // this.player.setBodySize(this.dino.player / 2.5, this.player.height)
+    // .setDepth(1)
+    // .setCollideWorldBounds(true)
+    // .setGravityY(5000)
+
+    this.playerContainer.add(this.player)
+
+    this.physics.add.collider(this.playerContainer, this.ground);
+    // this.player = this.physics.add.sprite(0, height - 35, 'player-idle')
+    //     .setOrigin(0, 1)
+    //     .setDepth(1)
+    //     .setCollideWorldBounds(true)
+    //     .setGravityY(5000)
+    // this.player.setBodySize(this.dino.width / 2.5, this.player.height)
 
     this.gameOverScreen = this.add.container(width / 2, height / 2).setAlpha(0)
     this.gameOverText = this.add.image(0, 0, 'game-over')
@@ -37,7 +53,7 @@ export default function create() {
     ]).setDepth(1)
     this.immovableObstacles = this.physics.add.group()
     this.movableObstacles = this.physics.add.group()
-    this.physics.add.collider(this.dino, this.ground);
+
     initAnimations(this)
     initColliders(this)
     initStartTrigger(this)
@@ -45,25 +61,40 @@ export default function create() {
     handleScore(this)
     var self = this
     this.socket = io('http://localhost:3000')
-    this.socket.on('connect', function () {
-        console.log('connected');
-    })
-    this.socket.on('imageUri', function (data) {
-        const dataURI = `data:image/png;base64,${data}`
-        if (self.textures.exists('dino-idle-2')) {
-            self.textures.removeKey('dino-idle-2')
+
+    this.socket.on('imageUri', function (base64) {
+        const dataURI = `data:image/png;base64,${base64}`
+        if (self.textures.exists('player-idle-2')) {
+            self.textures.removeKey('player-idle-2')
         }
-        self.textures.addBase64('dino-idle-2', dataURI)
+        self.textures.addBase64('player-idle-2', dataURI)
         self.textures.on('onload', function () {
-            self.dino.setTexture('dino-idle-2')
-            self.dino.setBodySize(self.dino.width, self.dino.height)
-            self.base64 = true
-            self.dino.anims.stop()
+            let x = self.player.texture.key == 'player-idle' ? 5 : 17
+            self.face = self.add.image(x, -20, 'player-idle-2');
+            self.face.displayWidth = 50;
+            self.face.scaleY = self.face.scaleX;
+            self.playerContainer.add(self.face)
+            self.faceChanged = true
         });
     })
+
 }
 
 function initAnimations(self) {
+    self.anims.create({
+        key: 'running',
+        frames: [
+            { key: 'player-running', frame: "boy-running-1.png" },
+            { key: 'player-running', frame: "boy-running-2.png" },
+            { key: 'player-running', frame: "boy-running-3.png" },
+            { key: 'player-running', frame: "boy-running-4.png" },
+            { key: 'player-running', frame: "boy-running-5.png" },
+            { key: 'player-running', frame: "boy-running-6.png" }
+        ],
+        frameRate: self.gameSpeed,
+        repeat: -1
+    })
+
     self.anims.create({
         key: 'dino-run',
         frames: self.anims.generateFrameNumbers('dino', { start: 0, end: 8 }),
@@ -115,11 +146,11 @@ function initAnimations(self) {
 }
 
 function initColliders(self) {
-    self.physics.add.collider(self.dino, self.movableObstacles, () => {
+    self.physics.add.collider(self.playerContainer, self.movableObstacles, () => {
         handleCollide(self)
     }, null, self)
 
-    self.physics.add.collider(self.dino, self.immovableObstacles, () => {
+    self.physics.add.collider(self.playerContainer, self.immovableObstacles, () => {
         handleCollide(self)
     }, null, self)
 }
@@ -146,8 +177,8 @@ function handleCollide(self) {
 }
 
 function initStartTrigger(self) {
-    const { width, height } = self.game.config
-    self.physics.add.overlap(self.startTrigger, self.dino, () => {
+    const { height } = self.game.config
+    self.physics.add.overlap(self.startTrigger, self.playerContainer, () => {
         if (self.startTrigger.y == 100) {
             self.startTrigger.body.reset(0, height)
             return
@@ -158,13 +189,15 @@ function initStartTrigger(self) {
             loop: true,
             callbackScope: self,
             callback: () => {
-                if (self.base64 === false) {
-                    self.dino.play('dino-run', 1)
+                if (self.faceChanged) {
+                    if (self.face.x == 5) {
+                        self.face.x += 12
+                    }
                 }
-                self.dino.setVelocity(70)
+                self.playerContainer.body.setVelocity(70)
                 self.isGameRunning = true
-                if (self.dino.x >= 70) {
-                    self.dino.setVelocity(0)
+                if (self.playerContainer.body.x >= 70) {
+                    self.playerContainer.body.setVelocity(0)
                     startEvent.remove()
                 }
             }
@@ -175,11 +208,11 @@ function initStartTrigger(self) {
 function handleInputs(self) {
     self.input.keyboard.on('keydown', (event) => {
         if (event.keyCode === 32) {
-            if (self.dino.body.onFloor()) {
-                self.dino.setVelocityY(-1800)
+            if (self.playerContainer.body.onFloor()) {
+                self.playerContainer.body.setVelocityY(-1800)
             }
             if (self.restart.alpha === 1) {
-                self.dino.setVelocityY(0)
+                self.playerContainer.body.setVelocityY(0)
                 self.physics.resume()
                 self.immovableObstacles.clear(true, true)
                 self.movableObstacles.clear(true, true)

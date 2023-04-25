@@ -30,16 +30,11 @@ function updateObstacle(self, delta, increasement) {
 }
 
 function updatePlayer(self) {
-    if (!self.dino.body.onFloor()) {
-        self.dino.anims.stop()
-        if (self.base64 === false) {
-            self.dino.setTexture('dino')
-        }
+    if (!self.playerContainer.body.onFloor()) {
+        self.player.anims.stop()
     }
     else {
-        if (self.base64 === false) {
-            self.dino.play('dino-run', true)
-        }
+        self.player.play('running', true)
     }
 }
 
@@ -50,23 +45,24 @@ function updateGameSpeed(self, delta) {
 function placeObstacle(self) {
     const { width, height } = self.game.config
     const obstacleNum = Math.floor(Math.random() * 11) + 1
-    // const obstacleNum = 11
     let obstacle
     let detail = getObstacleDetail(obstacleNum)
 
     if (detail.ismovable) {
-        obstacle = self.movableObstacles.create(width, height - detail.offset, `obstacle-${obstacleNum}`)
+        obstacle = self.movableObstacles.create(width, height - detail.height_offset, `obstacle-${obstacleNum}`)
     }
     else {
-        obstacle = self.immovableObstacles.create(width, height - detail.offset, `obstacle-${obstacleNum}`)
+        obstacle = self.immovableObstacles.create(width, height - detail.height_offset, `obstacle-${obstacleNum}`)
     }
 
     if (detail.anim) {
         obstacle.play(`obstacle-anim-${obstacleNum}`, 1);
     }
-
     obstacle.setSize(obstacle.width - detail.width, obstacle.height - detail.height)
     obstacle.setOrigin(0, 1).setImmovable()
+    if (detail.collision_offset > 0) {
+        obstacle.body.offset.y = +detail.collision_offset
+    }
 }
 
 function randomNumber(min, max) {
@@ -74,11 +70,11 @@ function randomNumber(min, max) {
 }
 
 function getObstacleDetail(num) {
-    if (num == 11) return { ismovable: true, offset: 25, anim: true, width: 30, height: 40 }
-    if (num == 10) return { ismovable: true, offset: 30, anim: true, width: 70, height: 30 }
-    if (num == 9) return { ismovable: true, offset: 70, anim: true, width: 35, height: 50 }
-    if (num == 8) return { ismovable: true, offset: 30, anim: true, width: 35, height: 10 }
-    if (num == 7) return { ismovable: false, offset: 20, anim: true, width: 80, height: 80 }
-    if (num == 6) return { ismovable: false, offset: 35, anim: false, width: 60, height: 10 }
-    if (num < 6) return { ismovable: false, offset: 35, anim: false, width: 12, height: 10 }
+    if (num == 11) return { ismovable: true, height_offset: 25, anim: true, width: 30, height: 50, collision_offset: 0 }
+    if (num == 10) return { ismovable: true, height_offset: 30, anim: true, width: 70, height: 30, collision_offset: 10 }
+    if (num == 9) return { ismovable: true, height_offset: 70, anim: true, width: 35, height: 60, collision_offset: 0 }
+    if (num == 8) return { ismovable: true, height_offset: 30, anim: true, width: 35, height: 10, collision_offset: 10 }
+    if (num == 7) return { ismovable: false, height_offset: 20, anim: true, width: 80, height: 80, collision_offset: 0 }
+    if (num == 6) return { ismovable: false, height_offset: 35, anim: false, width: 60, height: 10, collision_offset: 10 }
+    if (num < 6) return { ismovable: false, height_offset: 30, anim: false, width: 12, height: 10, collision_offset: 10 }
 }
