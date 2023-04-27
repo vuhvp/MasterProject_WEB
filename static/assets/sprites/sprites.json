@@ -1,0 +1,292 @@
+{
+	"textures": [
+		{
+			"image": "sprites",
+			"format": "RGBA8888",
+			"size": {
+				"w": 437,
+				"h": 485
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "obstacles/4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 182,
+						"h": 55
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 182,
+						"h": 55
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 182,
+						"h": 55
+					}
+				},
+				{
+					"filename": "obstacles/6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 178,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 178,
+						"h": 140
+					},
+					"frame": {
+						"x": 0,
+						"y": 55,
+						"w": 178,
+						"h": 140
+					}
+				},
+				{
+					"filename": "obstacles/5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 155,
+						"h": 95
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 155,
+						"h": 95
+					},
+					"frame": {
+						"x": 182,
+						"y": 0,
+						"w": 155,
+						"h": 95
+					}
+				},
+				{
+					"filename": "obstacles/1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 54,
+						"h": 150
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 54,
+						"h": 150
+					},
+					"frame": {
+						"x": 0,
+						"y": 195,
+						"w": 54,
+						"h": 150
+					}
+				},
+				{
+					"filename": "girl/running/5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 100,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 100,
+						"h": 140
+					},
+					"frame": {
+						"x": 54,
+						"y": 195,
+						"w": 100,
+						"h": 140
+					}
+				},
+				{
+					"filename": "girl/running/6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 104,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 104,
+						"h": 140
+					},
+					"frame": {
+						"x": 154,
+						"y": 195,
+						"w": 104,
+						"h": 140
+					}
+				},
+				{
+					"filename": "girl/running/2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 100,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 100,
+						"h": 140
+					},
+					"frame": {
+						"x": 337,
+						"y": 0,
+						"w": 100,
+						"h": 140
+					}
+				},
+				{
+					"filename": "girl/running/1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 140
+					},
+					"frame": {
+						"x": 258,
+						"y": 140,
+						"w": 107,
+						"h": 140
+					}
+				},
+				{
+					"filename": "girl/running/3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 104,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 104,
+						"h": 140
+					},
+					"frame": {
+						"x": 0,
+						"y": 345,
+						"w": 104,
+						"h": 140
+					}
+				},
+				{
+					"filename": "girl/running/4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 108,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 108,
+						"h": 140
+					},
+					"frame": {
+						"x": 104,
+						"y": 335,
+						"w": 108,
+						"h": 140
+					}
+				},
+				{
+					"filename": "girl/stationary.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 94,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 94,
+						"h": 140
+					},
+					"frame": {
+						"x": 212,
+						"y": 335,
+						"w": 94,
+						"h": 140
+					}
+				},
+				{
+					"filename": "obstacles/2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 83,
+						"h": 85
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 83,
+						"h": 85
+					},
+					"frame": {
+						"x": 306,
+						"y": 280,
+						"w": 83,
+						"h": 85
+					}
+				},
+				{
+					"filename": "obstacles/3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 65
+					},
+					"frame": {
+						"x": 365,
+						"y": 140,
+						"w": 64,
+						"h": 65
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}

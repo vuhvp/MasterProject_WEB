@@ -1,11 +1,35 @@
 export default function update(time, delta) {
     var self = this
-    if (!this.isGameRunning) return
     const increasement = this.gameSpeed * delta * 0.05
+
+    handleJump(this)
+    if (!this.isGameRunning) return
+    // const increasement = this.gameSpeed * delta * 0.05
     updateGround(this, increasement)
-    updateObstacle(this, delta, increasement)
+    // updateObstacle(this, delta, increasement)
     updatePlayer(this)
     updateGameSpeed(this, delta)
+}
+
+function handleJump(self) {
+    if (self.spacebar.isDown) {
+        // if (self.playerContainer.body.onFloor()) {
+        //     self.playerContainer.body.setVelocityY(-1800)
+        // }
+        // if (self.restart.alpha === 1) {
+        //     self.playerContainer.body.setVelocityY(0)
+        //     self.physics.resume()
+        //     self.immovableObstacles.clear(true, true)
+        //     self.movableObstacles.clear(true, true)
+        //     self.isGameRunning = true
+        //     self.gameOverScreen.setAlpha(0)
+        //     self.anims.resumeAll()
+        //     self.restart.setAlpha(0)
+        // }
+        if (self.player.y > 329) {
+            self.player.setVelocityY(-19);
+        }
+    }
 }
 
 function updateGround(self, increasement) {
@@ -30,12 +54,13 @@ function updateObstacle(self, delta, increasement) {
 }
 
 function updatePlayer(self) {
-    if (!self.playerContainer.body.onFloor()) {
-        self.player.anims.stop()
-    }
-    else {
-        self.player.play('running', true)
-    }
+    // if (!self.playerContainer.body.onFloor()) {
+    //     self.player.anims.stop()
+    // }
+    // else {
+    //     self.player.play('running', true)
+    // }
+    self.player.play('girl-running', true)
 }
 
 function updateGameSpeed(self, delta) {
