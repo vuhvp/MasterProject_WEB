@@ -27,7 +27,8 @@ export default function create() {
     this.physics.world.enable(this.playerContainer);
     this.playerContainer.body.setGravityY(5000).setCollideWorldBounds(true);
 
-    this.player = this.physics.add.sprite(0, 0, 'player-idle')
+    // this.player = this.physics.add.sprite(0, 0, 'player-idle')
+    this.player = this.physics.add.sprite(0, 0, 'girl', 'stationary.png');
     // this.player.displayHeight = 140
     // this.player.scaleX = this.player.scaleY;
     // this.player.setBodySize(this.dino.player / 2.5, this.player.height)
@@ -85,14 +86,28 @@ export default function create() {
 
 function initAnimations(self) {
     self.anims.create({
-        key: 'running',
+        key: 'boy_running',
         frames: [
-            { key: 'player-running', frame: "boy-running-1.png" },
-            { key: 'player-running', frame: "boy-running-2.png" },
-            { key: 'player-running', frame: "boy-running-3.png" },
-            { key: 'player-running', frame: "boy-running-4.png" },
-            { key: 'player-running', frame: "boy-running-5.png" },
-            { key: 'player-running', frame: "boy-running-6.png" }
+            { key: 'boy', frame: "1.png" },
+            { key: 'boy', frame: "2.png" },
+            { key: 'boy', frame: "3.png" },
+            { key: 'boy', frame: "4.png" },
+            { key: 'boy', frame: "5.png" },
+            { key: 'boy', frame: "6.png" }
+        ],
+        frameRate: self.gameSpeed,
+        repeat: -1
+    })
+
+    self.anims.create({
+        key: 'girl_running',
+        frames: [
+            { key: 'girl', frame: "1.png" },
+            { key: 'girl', frame: "2.png" },
+            { key: 'girl', frame: "3.png" },
+            { key: 'girl', frame: "4.png" },
+            { key: 'girl', frame: "5.png" },
+            { key: 'girl', frame: "6.png" }
         ],
         frameRate: self.gameSpeed,
         repeat: -1

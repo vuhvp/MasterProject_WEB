@@ -34,7 +34,7 @@ function updatePlayer(self) {
         self.player.anims.stop()
     }
     else {
-        self.player.play('running', true)
+        self.player.play('girl_running', true)
     }
 }
 
@@ -44,8 +44,7 @@ function updateGameSpeed(self, delta) {
 
 function placeObstacle(self) {
     const { width, height } = self.game.config
-    // const obstacleNum = Math.floor(Math.random() * 11) + 1
-    const obstacleNum = 9
+    const obstacleNum = Math.floor(Math.random() * 11) + 1
     let obstacle
     let detail = getObstacleDetail(obstacleNum)
 
@@ -53,7 +52,7 @@ function placeObstacle(self) {
         obstacle = self.movableObstacles.create(width, height - detail.height_offset, `obstacle-${obstacleNum}`)
     }
     else {
-        obstacle = self.immovableObstacles.create(width, height - detail.height_offset, `obstacle-${obstacleNum}`)
+        obstacle = self.immovableObstacles.create(width, height - detail.height_offset, 'obstacle', `${obstacleNum}.png`)
     }
 
     if (detail.anim) {
