@@ -2,7 +2,8 @@ export default function preload() {
   this.load.image('background', '/static/assets/background.png');
   this.load.image('ground', '/static/assets/ground.png');
   this.load.image('restart', '/static/assets/restart.png');
-  this.load.image('game-over', '/static/assets/game_over.png');
+  this.load.image('restart1', '/static/assets/restart-1.png');
+  this.load.image('gameover', '/static/assets/game_over.png');
 
   this.load.spritesheet('obstacle-7', '/static/assets/ob-7.png', {
     frameWidth: 200,
@@ -25,11 +26,13 @@ export default function preload() {
     frameHeight: 90
   })
 
-  this.load.image('player-idle', '/static/assets/boy/boy-idle.png');
-  this.load.atlas("player-running", "/static/assets/boy/boy.png", "/static/assets/boy/boy.json")
+  this.load.atlas("boy_sprites", "/static/assets/boy/sprites.png", "/static/assets/boy/sprites.json")
+  this.load.atlas("girl_sprites", "/static/assets/girl/sprites.png", "/static/assets/girl/sprites.json")
+  this.load.atlas("obstacle", "/static/assets/obstacle/obstacle.png", "/static/assets/obstacle/obstacle.json")
 
 
-  this.load.atlas("boy", "/static/assets/boy.png", "/static/assets/boy.json")
-  this.load.atlas("girl", "/static/assets/girl.png", "/static/assets/girl.json")
-  this.load.atlas("obstacle", "/static/assets/obstacle.png", "/static/assets/obstacle.json")
+  this.load.json('boy_shapes', '/static/assets/boy/shapes.json');
+  this.load.json('girl_shapes', '/static/assets/girl/shapes.json');
+  this.load.json('obstacle_shapes', '/static/assets/obstacle_shapes.json');
+
 }

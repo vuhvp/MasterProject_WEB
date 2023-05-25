@@ -10,7 +10,21 @@
 </head>
 
 <body>
-    <div class="container h-75">
+    <div class="container py-3">
+        <div class="row mb-5">
+            <div class="col-auto">
+                Your session ID: <span id="session"></span>
+            </div>
+            <div class="col-auto">
+                <form name="myForm">
+                    <input type="radio" class="btn-check" name="gender" id="primary-outlined" value="boy" checked>
+                    <label class="btn btn-outline-primary" for="primary-outlined">Boy</label>
+
+                    <input type="radio" class="btn-check" name="gender" id="danger-outlined" value="girl">
+                    <label class="btn btn-outline-danger" for="danger-outlined">Girl</label>
+                </form>
+            </div>
+        </div>
         <div id="game">
             {% block content %}
             {% endblock %}
